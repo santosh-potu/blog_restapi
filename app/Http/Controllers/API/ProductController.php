@@ -20,6 +20,7 @@ class ProductController extends BaseController
     public function index()
     {
         $products = Product::all();
+       //check session varible exists else create and display to verify its always same in session
         if(!request()->session()->get('time_var_session')){
             request()->session()->put('time_var_session', time());
         }
