@@ -20,9 +20,12 @@ class ProductController extends BaseController
     public function index()
     {
         $products = Product::all();
-
-
-        return $this->sendResponse($products->toArray(), 'Products retrieved successfully.');
+        if(!request()->session()->get('time_var_session')){
+            request()->session()->put('time_var_session', time());
+        }
+        $output = $products->toArray();
+        $output['time_var_session'] = request()->session()->get('time_var_session');
+        return $this->sendResponse($output, 'Products retrieved successfully.');
     }
 
 
